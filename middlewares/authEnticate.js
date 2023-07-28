@@ -9,10 +9,10 @@ const authEnticate = async (req, res, next) => {
   const { authorization = "" } = req.headers;
   const [bearer, token] = authorization.split(" ");
 
-  if (bearer !== "Bearer") {
+  if (bearer !== "Bearer" || !token) {
     next(HttpError(401));
   }
-
+  console.log(bearer !== "Bearer" || !token);
   try {
     const { _id } = jwt.verify(token, SECRET_KEY);
     const user = await User.findById(_id);
