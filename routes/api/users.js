@@ -8,6 +8,8 @@ const {
   logout,
   updateSubscription,
   updateAvatar,
+  verifyEmail,
+  resendVerifyEmail,
 } = require("../../controllers/user");
 
 const router = express.Router();
@@ -15,6 +17,10 @@ const router = express.Router();
  * Register router
  */
 router.post("/register", validateBody(schemas.validationSchema), register);
+
+router.get("/verify/:verificationToken", verifyEmail);
+
+router.post("/verify", validateBody(schemas.emailSchema), resendVerifyEmail);
 
 router.post("/login", validateBody(schemas.validationSchema), login);
 
